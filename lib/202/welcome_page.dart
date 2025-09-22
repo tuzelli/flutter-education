@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:venhancer_education/202/farm_page.dart';
+import 'package:venhancer_education/303/view_model/user_view_model.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
@@ -7,6 +9,7 @@ class WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    final userVM = context.read<UserVM>();
     return Scaffold(
       body: Stack(
         children: [
@@ -55,10 +58,11 @@ class WelcomePage extends StatelessWidget {
                       width: size.width - 32,
                       child: ElevatedButton(
                         onPressed: () {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(builder: (context) => FarmPage()),
-                          );
+                          userVM.fetchUser();
+                          // Navigator.pushReplacement(
+                          //   context,
+                          //   MaterialPageRoute(builder: (context) => FarmPage()),
+                          // );
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.primaryColor,
@@ -67,7 +71,7 @@ class WelcomePage extends StatelessWidget {
                           ),
                         ),
                         child: Text(
-                          "Giriş Yap",
+                          userVM.isLoading ? "" : "Giris Yap",
                           style: TextStyle(color: Colors.white),
                         ),
                       ),

@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:venhancer_education/202/welcome_page.dart';
+import 'package:venhancer_education/303/view_model/user_view_model.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => UserVM()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -20,4 +29,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
